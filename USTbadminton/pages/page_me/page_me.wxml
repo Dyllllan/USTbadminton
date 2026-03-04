@@ -1,0 +1,18 @@
+<top title="组队达人"></top>
+<block wx:if="{{isLogin}}">
+<van-cell-group inset>
+    <view class="userinfo">
+      <van-image round fit="cover" width="4rem" height="4rem" src="{{avatarUrl}}" />
+    </view>
+    <van-cell title="姓名" value="{{user.uName}}" icon="user-o" />
+    <van-cell title="性别" value="{{sexShow}}" icon="diamond-o" />
+    <van-cell title="学号" value="{{user.uStuNum}}" icon="eye-o" />
+    <van-cell title="学校" value="{{user.uSchool}}" icon="location-o" />
+    <van-cell title="专业" value="{{user.uMajor}}" icon="award-o" />
+</van-cell-group>
+<van-button bindtap="toUpdatePage" block>编辑信息</van-button>
+</block>
+<block wx:else>
+  <van-button bindtap="login" block>登录</van-button>
+</block>
+<nav active="me"></nav>

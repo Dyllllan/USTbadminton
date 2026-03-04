@@ -1,0 +1,8 @@
+{
+  "name": "ustbadminton",
+  "version": "1.0.0",
+  "description": "UST 羽毛球组队小程序",
+  "dependencies": {
+    "@vant/weapp": "^1.10.6"
+  }
+}
