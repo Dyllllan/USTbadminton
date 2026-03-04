@@ -1,0 +1,45 @@
+<top title="创建活动"></top>
+
+<view class="create-form">
+  <van-cell-group>
+    <van-cell title="场地" is-link bind:click="showVenuePicker" value="{{aVenue || '请选择'}}" />
+    <van-cell title="等级" is-link bind:click="showLevelPicker" value="{{aLevel || '请选择'}}" />
+    <van-cell title="日期" is-link bind:click="showDatePicker" value="{{aDateShow || '请选择'}}" />
+    <van-field model:value="{{aTimeSlot}}" label="时间段" placeholder="例如：14:00-16:00" border="{{ false }}" />
+    <van-cell title="人数">
+      <van-stepper slot="right-icon" value="{{aCount}}" bind:change="onCountChange" min="2" max="99" integer />
+    </van-cell>
+    <van-radio-group value="{{aIsPublic}}">
+      <van-cell title="公开" clickable data-name="1" bind:click="onIsPublicClick">
+        <van-radio slot="right-icon" name="1" />
+      </van-cell>
+      <van-cell title="私有" clickable data-name="0" bind:click="onIsPublicClick">
+        <van-radio slot="right-icon" name="0" />
+      </van-cell>
+    </van-radio-group>
+    <van-cell title="需要批准">
+      <van-switch slot="right-icon" checked="{{aNeedApprove}}" bind:change="onNeedApproveChange" />
+    </van-cell>
+    <van-field model:value="{{aDesc}}" label="简介" type="textarea" placeholder="请输入活动简介" border="{{ false }}" autosize />
+  </van-cell-group>
+
+  <van-action-sheet show="{{showVenue}}" actions="{{venueOptions}}" bind:select="onVenueSelect" bind:close="onVenueClose" />
+  <van-action-sheet show="{{showLevel}}" actions="{{levelOptions}}" bind:select="onLevelSelect" bind:close="onLevelClose" />
+
+  <van-popup show="{{showDate}}" bind:close="onDateClose" position="bottom">
+    <van-datetime-picker
+      type="date"
+      value="{{currentDate}}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="onDateClose"
+      min-date="{{minDate}}"
+      formatter="{{dateFormatter}}"
+    />
+  </van-popup>
+</view>
+
+<view class="submit-wrap">
+  <van-button type="primary" bindtap="createActivity" block custom-class="submit-btn">提交</van-button>
+</view>
+
+<nav active="create"></nav>

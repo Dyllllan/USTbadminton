@@ -1,0 +1,11 @@
+<back title="更新小组"></back>
+
+<van-cell-group>
+  <van-field model:value="{{tName}}" label="小组名称" border="{{ false }}" />
+  <van-field model:value="{{tDesc}}" label="小组描述" border="{{ false }}" />
+  <van-cell title="人数限制">
+    <van-stepper value="{{ tTotal }}" bind:change="onTotalChange" min="2" integer/>
+  </van-cell>
+</van-cell-group>
+
+<van-button plain type="primary" bindtap="updateTeam" block>更新</van-button>

@@ -1,0 +1,17 @@
+<back title="更新信息"></back>
+
+<van-cell-group>
+  <van-field model:value="{{uName}}" label="姓名" placeholder="你的名字" border="{{ false }}" />
+  <van-field>
+    <van-radio-group slot="input" value="{{ uSex }}" bind:change="onSexChange" direction="horizontal"><span style="margin-right: 100rpx;">性别</span>
+      <van-radio name="male">男</van-radio>
+      <van-radio name="female">女</van-radio>
+      <van-radio name="other">其它</van-radio>
+    </van-radio-group>
+  </van-field>
+  <van-field model:value="{{uSchool}}" label="学校" placeholder="你的学校" border="{{ false }}" />
+  <van-field model:value="{{uStuNum}}" label="学号" placeholder="你的学号" border="{{ false }}" />
+  <van-field model:value="{{uMajor}}" label="专业" placeholder="你的专业" border="{{ false }}" />
+</van-cell-group>
+
+<van-button plain type="primary" bindtap="updateInfo" block>更新</van-button>

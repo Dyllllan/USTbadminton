@@ -1,0 +1,17 @@
+{
+  "usingComponents": {
+    "nav": "/pages/page_common/navigator/navigator",
+    "top": "/pages/page_common/top_container/top_container",
+    "van-field": "@vant/weapp/field/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-switch": "@vant/weapp/switch/index"
+  }
+}

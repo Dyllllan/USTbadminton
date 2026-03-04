@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "nav": "/pages/page_common/navigator/navigator",
+    "top": "/pages/page_common/top_container/top_container",
+    "van-button": "@vant/weapp/button/index",
+    "van-empty": "@vant/weapp/empty/index"
+  }
+}

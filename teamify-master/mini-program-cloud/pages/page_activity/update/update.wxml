@@ -1,0 +1,28 @@
+<back title="更新活动"></back>
+
+<van-cell-group>
+  <van-field model:value="{{aName}}" label="活动题目" placeholder="例如：思政小组展示" border="{{ false }}" />
+  <van-field model:value="{{aDesc}}" label="活动内容" placeholder="请输入活动内容" border="{{ false }}" />
+  <van-cell title="截止日期" is-link bind:click="showDatePickerPopup" label="{{aEndDateShow}}" value="选择"/>
+  <van-popup show="{{ show }}" bind:close="onDatePickerClose" position="bottom">
+    <van-datetime-picker
+      type="date"
+      value="{{ currentDate }}"
+      bind:input="onDatePickerInput"
+      bind:cancel="onDatePickerClose"
+      bind:confirm="onDatePickerConfirm"
+      min-date="{{ minDate }}"
+      formatter="{{ formatter }}"
+    />
+  </van-popup>
+  <van-radio-group value="{{aIsPublic}}">
+    <van-cell title="公开" clickable data-name="1" bind:click="onIsPublicClick">
+      <van-radio slot="right-icon" name="1" />
+    </van-cell>
+    <van-cell title="私有" clickable data-name="0" bind:click="onIsPublicClick">
+      <van-radio slot="right-icon" name="0" />
+    </van-cell>
+  </van-radio-group>
+</van-cell-group>
+
+<van-button plain type="primary" bindtap="updateActivity" block>更新</van-button>

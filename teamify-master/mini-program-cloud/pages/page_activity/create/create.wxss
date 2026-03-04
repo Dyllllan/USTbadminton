@@ -1,0 +1,26 @@
+.create-form {
+  padding: 24rpx 0;
+  background: #e8f4f8;
+}
+
+.create-form .van-cell-group {
+  margin: 0 24rpx 24rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(126, 200, 227, 0.2);
+}
+
+.create-form .van-cell,
+.create-form .van-field {
+  background: #fff;
+}
+
+.submit-wrap {
+  padding: 32rpx 24rpx 120rpx;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #7ec8e3 0%, #a8d8ea 100%) !important;
+  border: none !important;
+  border-radius: 16rpx;
+}

@@ -1,0 +1,10 @@
+<back title="我的小组" pageUrl="/pages/pageManage/pageManage"></back>
+
+<block wx:if="{{teams.length > 0}}">
+  <block wx:for="{{teams}}" wx:key="tId">
+    <van-cell data-aid="{{item.aId}}" data-tid="{{item.tId}}" bindtap="toTeamDetail" title="{{item.tName}}" is-link />
+  </block>
+</block>
+<block wx:else>
+  <van-empty description="屋子空荡荡的" />
+</block>

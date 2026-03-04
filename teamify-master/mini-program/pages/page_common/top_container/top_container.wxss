@@ -1,0 +1,9 @@
+.nav-title {
+  font-weight: bolder !important;
+  font-family: 'Times New Roman', Times, serif !important;
+  color: #fff !important;
+}
+
+.top-nav-bar-theme {
+  background: #a8d8ea !important;
+}

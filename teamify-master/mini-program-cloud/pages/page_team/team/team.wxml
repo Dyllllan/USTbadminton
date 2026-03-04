@@ -1,0 +1,10 @@
+<back title="小组"></back>
+
+<block wx:if="{{teams.length > 0}}">
+  <block wx:for="{{teams}}" wx:key="tId">
+    <van-cell id="{{item.tId}}" bindtap="toTeamDetail" title="{{item.tName}}" is-link />
+  </block>
+</block>
+<block wx:else>
+  <van-empty description="屋子空荡荡的" />
+</block>
