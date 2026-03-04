@@ -1,0 +1,60 @@
+.create-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e8f4f8 0%, #f5f9fc 40%, #f7f8fa 100%);
+  padding-bottom: 300rpx;
+}
+
+.section {
+  padding: 0 24rpx;
+  margin-bottom: 8rpx;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 8rpx 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #323233;
+}
+
+.section-icon {
+  margin-right: 10rpx;
+  font-size: 30rpx;
+}
+
+.card {
+  border-radius: 16rpx !important;
+  overflow: hidden;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+
+.placeholder {
+  color: #c8c9cc !important;
+}
+
+.radio-item {
+  margin-left: 20rpx;
+}
+
+.submit-wrap {
+  position: fixed;
+  bottom: 160rpx;
+  left: 0;
+  right: 0;
+  padding: 20rpx 32rpx;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -2rpx 16rpx rgba(0, 0, 0, 0.06);
+  z-index: 100;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #5cb3cc 0%, #7ec8e3 100%) !important;
+  border: none !important;
+  font-size: 32rpx !important;
+  font-weight: 600 !important;
+  letter-spacing: 4rpx;
+  height: 88rpx !important;
+  line-height: 88rpx !important;
+}

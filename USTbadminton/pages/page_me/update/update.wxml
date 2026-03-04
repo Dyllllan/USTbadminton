@@ -14,4 +14,16 @@
   <van-field model:value="{{uMajor}}" label="专业" placeholder="你的专业" border="{{ false }}" />
 </van-cell-group>
 
+<van-cell-group title="邮箱认证（仅支持 @connect.ust.hk）">
+  <van-field model:value="{{email}}" label="邮箱" placeholder="xxx@connect.ust.hk" border="{{ false }}" />
+  <van-field model:value="{{emailCode}}" label="验证码" placeholder="请输入验证码" border="{{ false }}" />
+  <van-cell>
+    <van-button slot="right" size="small" type="primary" plain bindtap="sendEmailCode" disabled="{{codeCountdown > 0}}">
+      {{codeCountdown > 0 ? codeCountdown + 's 后重发' : '发送验证码'}}
+    </van-button>
+  </van-cell>
+  <van-cell title="{{uEmailVerified ? '已认证' : '未认证'}}" value="{{uEmail || '-'}}" />
+  <van-button size="small" type="primary" bindtap="verifyEmail" block>验证并绑定邮箱</van-button>
+</van-cell-group>
+
 <van-button plain type="primary" bindtap="updateInfo" block>更新</van-button>

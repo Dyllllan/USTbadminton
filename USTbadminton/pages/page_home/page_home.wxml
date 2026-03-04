@@ -1,18 +1,63 @@
 <top title="UST 羽毛球组队"></top>
 
-<van-grid gutter="{{ 10 }}" column-num="2">
-  <van-grid-item icon="photo-o" use-slot wx:for="{{ 1 }}" bindtap='toCreateActivity'>
-    <van-icon name="add-o" size="60px" /> 创建活动
-  </van-grid-item>
-  <van-grid-item icon="photo-o" use-slot wx:for="{{ 1 }}" bindtap="scanQrcode">
-    <van-icon name="scan" size="60px" /> 加入活动
-  </van-grid-item>
-  <van-grid-item icon="photo-o" use-slot wx:for="{{ 1 }}" bindtap="viewPublicActivity">
-    <van-icon name="fire-o" size="60px" /> 公开活动
-  </van-grid-item>
-  <van-grid-item icon="photo-o" use-slot wx:for="{{ 1 }}" bindtap="login">
-    <van-icon name="user-o" size="60px" /> 登录
-  </van-grid-item>
-</van-grid>
+<view class="page-content">
+  <view class="my-activity-section">
+    <view class="my-activity-header">
+      <view class="section-title-my">我的活动</view>
+    </view>
+    <block wx:if="{{isLogin}}">
+      <scroll-view class="my-activity-scroll" scroll-x>
+        <view class="my-activity-cards">
+          <view class="my-activity-card" wx:for="{{myActivities}}" wx:key="aId" bindtap="viewActivity" data-aid="{{item.aId}}">
+            <view class="card-top">
+              <text class="card-role">{{item.role}}</text>
+              <text class="card-date">{{item.aDateShow || item.aEndDateShow}}</text>
+            </view>
+            <view class="card-title">{{item.aName}}</view>
+            <view class="card-detail" wx:if="{{item.aVenue || item.aLevel || item.aTimeSlot || item.aCount}}">
+              <text wx:if="{{item.aVenue}}" class="card-detail-item">{{item.aVenue}}</text>
+              <text wx:if="{{item.aLevel}}" class="card-detail-item">{{item.aLevel}}</text>
+              <text wx:if="{{item.aTimeSlot}}" class="card-detail-item">{{item.aTimeSlot}}</text>
+              <text wx:if="{{item.aCount}}" class="card-detail-item">{{item.aCount}}人</text>
+            </view>
+            <view class="card-meta">{{item.aIsPublic == 1 ? '公开' : '私有'}}</view>
+          </view>
+          <view class="my-activity-card default-card" wx:if="{{myActivities.length === 0}}" bindtap="toCreateActivity">
+            <view class="card-top">
+              <text class="card-role">创建</text>
+            </view>
+            <view class="card-title">暂无活动</view>
+            <view class="card-meta">点击创建</view>
+          </view>
+        </view>
+      </scroll-view>
+    </block>
+    <view class="login-tip" wx:else bindtap="goToMe">点击登录后查看我的活动</view>
+  </view>
+
+  <view class="public-activity-section">
+    <view class="section-title section-title-public">公开活动</view>
+    <view class="activity-list" wx:if="{{activities.length > 0}}">
+      <view class="activity-card" wx:for="{{activities}}" wx:key="aId">
+        <view class="activity-info">
+          <view class="activity-name">{{item.aName}}</view>
+          <view class="activity-meta">
+            <text class="activity-date">日期：{{item.aDateShow || item.aEndDateShow}}</text>
+            <text class="activity-type">{{item.aIsPublic == 1 ? '公开' : '私有'}}</text>
+          </view>
+          <view class="activity-detail" wx:if="{{item.aVenue || item.aLevel || item.aTimeSlot || item.aCount}}">
+            <text wx:if="{{item.aVenue}}" class="activity-detail-item">场地：{{item.aVenue}}</text>
+            <text wx:if="{{item.aLevel}}" class="activity-detail-item">等级：{{item.aLevel}}</text>
+            <text wx:if="{{item.aTimeSlot}}" class="activity-detail-item">时段：{{item.aTimeSlot}}</text>
+            <text wx:if="{{item.aCount}}" class="activity-detail-item">人数：{{item.aCount}}人</text>
+          </view>
+          <view class="activity-desc" wx:if="{{item.aDesc}}">{{item.aDesc}}</view>
+        </view>
+        <van-button size="small" type="primary" plain bindtap="joinActivity" data-aid="{{item.aId}}">加入</van-button>
+      </view>
+    </view>
+    <van-empty wx:else description="暂无公开活动" />
+  </view>
+</view>
 
 <nav active="home"></nav>

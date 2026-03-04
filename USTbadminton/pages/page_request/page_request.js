@@ -1,5 +1,3 @@
-const app = getApp()
-const baseUrl = app.globalData.baseUrl
 import * as util from "../../utils/util"
 
 Page({
@@ -15,10 +13,10 @@ Page({
   },
   onLoad(params) {
     let type = params.type
-    let status = params.status !== undefined ? status : 2
+    let status = params.status !== undefined ? params.status : 2
     let that = this
     wx.request({
-      url: `${baseUrl}/api/req/get?type=${type}&status=${status}`,
+      url: `${util.getBaseUrl()}/api/req/get?type=${type}&status=${status}`,
       header: util.getAuthHeader(),
       success(res) {
         let reqs = res.data.obj
@@ -45,7 +43,7 @@ Page({
         let that = this
         if (res.confirm) {
           wx.request({
-            url: `${baseUrl}/api/req/remove/${id}`,
+            url: `${util.getBaseUrl()}/api/req/remove/${id}`,
             method: "POST",
             header: util.getAuthHeader(),
             fail() {util.fail()},
@@ -71,7 +69,7 @@ Page({
       success(res) {
         if (res.confirm) {
           wx.request({
-            url: `${baseUrl}/api/req/handle?id=${id}&agree=${agree}`,
+            url: `${util.getBaseUrl()}/api/req/handle?id=${id}&agree=${agree}`,
             method: "POST",
             header: util.getAuthHeader(),
             fail() {util.fail()},

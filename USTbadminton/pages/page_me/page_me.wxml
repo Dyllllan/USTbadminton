@@ -6,13 +6,34 @@
     </view>
     <van-cell title="姓名" value="{{user.uName}}" icon="user-o" />
     <van-cell title="性别" value="{{sexShow}}" icon="diamond-o" />
-    <van-cell title="学号" value="{{user.uStuNum}}" icon="eye-o" />
-    <van-cell title="学校" value="{{user.uSchool}}" icon="location-o" />
-    <van-cell title="专业" value="{{user.uMajor}}" icon="award-o" />
+    <van-cell title="邮箱" value="{{user.uEmailVerified ? user.uEmail || '未认证' : '未认证'}}" icon="envelop-o" />
+</van-cell-group>
+<van-cell-group inset>
+  <van-cell icon="orders-o" bindtap="toManagePage" title="管理" is-link />
 </van-cell-group>
 <van-button bindtap="toUpdatePage" block>编辑信息</van-button>
+<van-button bindtap="logout" block plain type="default" class="logout-btn">退出登录</van-button>
+<van-button bindtap="deleteAccount" block plain type="danger" class="delete-account-btn">注销账号</van-button>
 </block>
 <block wx:else>
-  <van-button bindtap="login" block>登录</van-button>
+  <block wx:if="{{!showLoginForm}}">
+    <view class="login-btn-wrap">
+      <van-button bindtap="onLoginTap" block type="primary">登录</van-button>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="login-form">
+      <view class="login-avatar-wrap">
+        <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <image class="login-avatar" src="{{loginAvatarUrl || defaultAvatar}}" mode="aspectFill" />
+          <text class="avatar-tip">点击选择头像</text>
+        </button>
+      </view>
+      <view class="login-nickname-wrap">
+        <input type="nickname" class="login-nickname" placeholder="请输入昵称" value="{{loginNickname}}" bindblur="onNicknameBlur" />
+      </view>
+      <van-button bindtap="doLogin" block type="primary">确认登录</van-button>
+    </view>
+  </block>
 </block>
 <nav active="me"></nav>

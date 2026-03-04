@@ -1,5 +1,3 @@
-const app = getApp()
-const baseUrl = app.globalData.baseUrl
 import * as util from "../../../utils/util"
 
 Page({
@@ -8,13 +6,10 @@ Page({
     aType: "",
     url: ""
   },
-  onShow() {
-
-  },
   onLoad(params) {
     let aType = params.aType
-    let url = `${baseUrl}/api/activity/get/pub`
-    if (aType == 1) url = `${baseUrl}/api/activity/get/my`
+    let url = `${util.getBaseUrl()}/api/activity/get/pub`
+    if (aType == 1) url = `${util.getBaseUrl()}/api/activity/get/my`
     this.setData({
       aType: aType,
       url: url

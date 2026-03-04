@@ -1,4 +1,9 @@
 /**app.wxss**/
+/* 全局浅蓝配色主题 */
+page {
+  background: #e8f4f8;
+}
+
 .container {
   height: 100%;
   display: flex;

@@ -18,9 +18,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#a8d8ea",
     "navigationBarTitleText": "UST 羽毛球组队",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationStyle": "custom"
   },
   "sitemapLocation": "sitemap.json"

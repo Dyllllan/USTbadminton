@@ -19,8 +19,8 @@ Component({
       if (pageName == "home") {
         util.route("/pages/page_home/page_home", 0, 1)
       }
-      else if (pageName == "manage") {
-        util.route("/pages/page_manage/page_manage", 0, 1)
+      else if (pageName == "create") {
+        util.route("/pages/page_activity/create/create", 0, 1)
       }
       else if (pageName == "me") {
         util.route("/pages/page_me/page_me", 0, 1)

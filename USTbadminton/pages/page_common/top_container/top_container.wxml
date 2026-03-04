@@ -1,4 +1,5 @@
 <van-nav-bar
   title="{{title}}"
   title-class="nav-title"
+  custom-class="top-nav-bar-theme"
 />

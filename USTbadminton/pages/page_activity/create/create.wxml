@@ -1,28 +1,140 @@
-<back title="创建活动"></back>
+<top title="创建活动"></top>
 
-<van-cell-group>
-  <van-field model:value="{{aName}}" label="活动题目" placeholder="例如：思政小组展示" border="{{ false }}" />
-  <van-field model:value="{{aDesc}}" label="活动简介" placeholder="请输入活动简介" border="{{ false }}" />
-  <van-cell title="截止日期" is-link bind:click="showDatePickerPopup" label="{{aEndDateShow}}" value="选择"/>
-  <van-popup show="{{ show }}" bind:close="onDatePickerClose" position="bottom">
-    <van-datetime-picker
-      type="date"
-      value="{{ currentDate }}"
-      bind:input="onDatePickerInput"
-      bind:cancel="onDatePickerClose"
-      bind:confirm="onDatePickerConfirm"
-      min-date="{{ minDate }}"
-      formatter="{{ formatter }}"
-    />
-  </van-popup>
-  <van-radio-group value="{{aIsPublic}}">
-    <van-cell title="公开" clickable data-name="1" bind:click="onIsPublicClick">
-      <van-radio slot="right-icon" name="1" />
-    </van-cell>
-    <van-cell title="私有" clickable data-name="0" bind:click="onIsPublicClick">
-      <van-radio slot="right-icon" name="0" />
-    </van-cell>
-  </van-radio-group>
-</van-cell-group>
+<view class="create-page">
+  <!-- 基本信息区 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="section-icon">📍</text>
+      <text>基本信息</text>
+    </view>
+    <van-cell-group inset custom-class="card">
+      <van-cell
+        title="场地"
+        is-link
+        value="{{aVenue || '请选择'}}"
+        value-class="{{aVenue ? '' : 'placeholder'}}"
+        data-type="venue"
+        bind:click="openPicker"
+      />
+      <van-cell
+        title="等级要求"
+        is-link
+        value="{{aLevel || '请选择'}}"
+        value-class="{{aLevel ? '' : 'placeholder'}}"
+        data-type="level"
+        bind:click="openPicker"
+      />
+    </van-cell-group>
+  </view>
 
-<van-button plain type="primary" bindtap="createActivity" block>提交</van-button>
+  <!-- 时间区 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="section-icon">🕐</text>
+      <text>时间安排</text>
+    </view>
+    <van-cell-group inset custom-class="card">
+      <van-cell
+        title="活动日期"
+        is-link
+        value="{{aDateShow || '请选择'}}"
+        value-class="{{aDateShow ? '' : 'placeholder'}}"
+        bind:click="openDatePicker"
+      />
+      <van-cell
+        title="时间段"
+        is-link
+        value="{{aTimeSlot || '请选择'}}"
+        value-class="{{aTimeSlot ? '' : 'placeholder'}}"
+        data-type="timeSlot"
+        bind:click="openPicker"
+      />
+    </van-cell-group>
+  </view>
+
+  <!-- 活动设置区 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="section-icon">⚙️</text>
+      <text>活动设置</text>
+    </view>
+    <van-cell-group inset custom-class="card">
+      <van-cell title="人数上限" center>
+        <van-stepper
+          slot="right-icon"
+          value="{{aCount}}"
+          bind:change="onCountChange"
+          min="2"
+          max="99"
+          integer
+          button-size="28px"
+        />
+      </van-cell>
+      <van-cell title="公开活动" center label="公开后其他用户可搜索加入">
+        <van-radio-group slot="right-icon" value="{{aIsPublic}}" direction="horizontal">
+          <van-radio name="1" data-name="1" bind:click="onIsPublicClick" custom-class="radio-item">公开</van-radio>
+          <van-radio name="0" data-name="0" bind:click="onIsPublicClick" custom-class="radio-item">私有</van-radio>
+        </van-radio-group>
+      </van-cell>
+      <van-cell title="加入需审批" center label="开启后成员加入需要你确认">
+        <van-switch slot="right-icon" checked="{{aNeedApprove}}" bind:change="onNeedApproveChange" size="24px" />
+      </van-cell>
+    </van-cell-group>
+  </view>
+
+  <!-- 补充信息区 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="section-icon">📝</text>
+      <text>补充说明</text>
+    </view>
+    <van-cell-group inset custom-class="card">
+      <van-field
+        model:value="{{aDesc}}"
+        type="textarea"
+        placeholder="添加活动简介、注意事项等（选填）"
+        autosize="{{ {minHeight: 80} }}"
+        border="{{ false }}"
+      />
+    </van-cell-group>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-wrap">
+    <van-button
+      type="primary"
+      block
+      round
+      loading="{{submitting}}"
+      loading-text="创建中..."
+      disabled="{{submitting}}"
+      bindtap="createActivity"
+      custom-class="submit-btn"
+    >
+      创建活动
+    </van-button>
+  </view>
+</view>
+
+<!-- 通用 action-sheet picker -->
+<van-action-sheet
+  show="{{showPicker}}"
+  actions="{{activePicker === 'venue' ? venueOptions : (activePicker === 'level' ? levelOptions : timeSlotOptions)}}"
+  bind:select="onPickerSelect"
+  bind:close="onPickerClose"
+  cancel-text="取消"
+/>
+
+<!-- 日期选择器 -->
+<van-popup show="{{showDate}}" bind:close="onDateClose" position="bottom" round>
+  <van-datetime-picker
+    type="date"
+    value="{{currentDate}}"
+    bind:confirm="onDateConfirm"
+    bind:cancel="onDateClose"
+    min-date="{{minDate}}"
+    formatter="{{dateFormatter}}"
+  />
+</van-popup>
+
+<nav active="create"></nav>
