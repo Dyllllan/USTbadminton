@@ -19,6 +19,81 @@ page {
   padding-top: 8rpx;
 }
 
+.search-filter-wrap {
+  margin: 0 32rpx 16rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(126, 200, 227, 0.2);
+}
+
+.pub-search {
+  padding: 16rpx !important;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16rpx;
+  border-top: 1rpx solid #ebedf0;
+  background: rgba(126, 200, 227, 0.08);
+}
+
+.filter-toggle-text {
+  font-size: 26rpx;
+  color: #5a9fb8;
+  margin-right: 8rpx;
+}
+
+.filter-toggle-icon {
+  font-size: 20rpx;
+  color: #5a9fb8;
+}
+
+.filter-tags {
+  padding: 0 24rpx 20rpx;
+  border-top: 1rpx solid #ebedf0;
+}
+
+.filter-row {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 16rpx;
+}
+
+.filter-row:first-child {
+  margin-top: 16rpx;
+}
+
+.filter-label {
+  flex-shrink: 0;
+  width: 64rpx;
+  font-size: 24rpx;
+  color: #969799;
+  line-height: 56rpx;
+}
+
+.filter-options {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.filter-tag {
+  font-size: 24rpx;
+  color: #646566;
+  background: rgba(126, 200, 227, 0.15);
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.filter-tag.active {
+  color: #fff;
+  background: #5a9fb8;
+}
+
 .section-title {
   padding: 24rpx 32rpx 16rpx;
   font-size: 32rpx;
@@ -55,63 +130,75 @@ page {
 
 .my-activity-card {
   flex-shrink: 0;
-  width: 280rpx;
-  min-width: 280rpx;
-  padding: 24rpx;
+  width: 360rpx;
+  min-width: 360rpx;
+  min-height: 140rpx;
+  padding: 20rpx;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 24rpx;
   box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .my-activity-card.default-card {
   background: rgba(255, 255, 255, 0.7);
 }
 
-.card-top {
+.card-cta {
+  font-size: 26rpx;
+  color: #5a9fb8;
+  font-weight: 500;
+}
+
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16rpx;
+  margin-bottom: 10rpx;
 }
 
 .card-role {
   font-size: 22rpx;
   color: #5a9fb8;
-  font-weight: 500;
-}
-
-.card-date {
-  font-size: 22rpx;
-  color: #969799;
-}
-
-.card-title {
-  font-size: 32rpx;
   font-weight: 600;
-  color: #323233;
-  margin-bottom: 12rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.card-detail {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8rpx 16rpx;
-  margin-bottom: 12rpx;
-}
-
-.card-detail-item {
-  font-size: 22rpx;
-  color: #646566;
-  background: rgba(126, 200, 227, 0.15);
-  padding: 4rpx 10rpx;
+  background: rgba(90, 159, 184, 0.12);
+  padding: 6rpx 14rpx;
   border-radius: 8rpx;
 }
 
-.card-meta {
+.card-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #323233;
+  line-height: 1.35;
+  margin-bottom: 8rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.card-time {
   font-size: 24rpx;
+  color: #969799;
+  margin-bottom: 6rpx;
+}
+
+.card-count {
+  margin-bottom: 0;
+}
+
+.card-count-text {
+  font-size: 26rpx;
+  color: #5a9fb8;
+  font-weight: 500;
+}
+
+.card-meta {
+  font-size: 22rpx;
   color: #969799;
 }
 
@@ -169,8 +256,22 @@ page {
   margin-bottom: 8rpx;
 }
 
+.activity-venue {
+  margin-right: 16rpx;
+}
+
 .activity-type {
-  margin-left: 16rpx;
+  margin-left: 0;
+}
+
+.activity-count {
+  margin-bottom: 8rpx;
+}
+
+.activity-count-text {
+  font-size: 26rpx;
+  color: #5a9fb8;
+  font-weight: 500;
 }
 
 .activity-detail {

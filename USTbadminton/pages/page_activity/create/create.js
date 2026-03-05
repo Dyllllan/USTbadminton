@@ -21,13 +21,19 @@ const LEVEL_OPTIONS = [
 ]
 
 const TIME_SLOT_OPTIONS = [
-  { name: "08:00-10:00" },
-  { name: "10:00-12:00" },
-  { name: "12:00-14:00" },
-  { name: "14:00-16:00" },
-  { name: "16:00-18:00" },
-  { name: "18:00-20:00" },
-  { name: "20:00-22:00" }
+  { name: "09:00-10:00" },
+  { name: "10:00-11:00" },
+  { name: "11:00-12:00" },
+  { name: "12:00-13:00" },
+  { name: "13:00-14:00" },
+  { name: "14:00-15:00" },
+  { name: "15:00-16:00" },
+  { name: "16:00-17:00" },
+  { name: "17:00-18:00" },
+  { name: "18:00-19:00" },
+  { name: "19:00-20:00" },
+  { name: "20:00-21:00" },
+  { name: "21:00-22:00" }
 ]
 
 Page({
@@ -116,7 +122,7 @@ Page({
   },
 
   buildActivityName() {
-    const parts = [this.data.aVenue, this.data.aDateShow, this.data.aLevel].filter(Boolean)
+    const parts = [this.data.aDateShow, this.data.aVenue, this.data.aLevel].filter(Boolean)
     return parts.length ? parts.join(" ") : "羽毛球活动"
   },
 

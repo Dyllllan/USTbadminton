@@ -9,25 +9,22 @@
       <scroll-view class="my-activity-scroll" scroll-x>
         <view class="my-activity-cards">
           <view class="my-activity-card" wx:for="{{myActivities}}" wx:key="aId" bindtap="viewActivity" data-aid="{{item.aId}}">
-            <view class="card-top">
+            <view class="card-header">
               <text class="card-role">{{item.role}}</text>
-              <text class="card-date">{{item.aDateShow || item.aEndDateShow}}</text>
+              <text class="card-meta">{{item.aIsPublic == 1 ? '公开' : '私有'}}</text>
             </view>
             <view class="card-title">{{item.aName}}</view>
-            <view class="card-detail" wx:if="{{item.aVenue || item.aLevel || item.aTimeSlot || item.aCount}}">
-              <text wx:if="{{item.aVenue}}" class="card-detail-item">{{item.aVenue}}</text>
-              <text wx:if="{{item.aLevel}}" class="card-detail-item">{{item.aLevel}}</text>
-              <text wx:if="{{item.aTimeSlot}}" class="card-detail-item">{{item.aTimeSlot}}</text>
-              <text wx:if="{{item.aCount}}" class="card-detail-item">{{item.aCount}}人</text>
+            <view class="card-time" wx:if="{{item.aTimeSlot}}">{{item.aTimeSlot}}</view>
+            <view class="card-count" wx:if="{{item.aCount != null || item.joinedCount != null}}">
+              <text class="card-count-text">{{item.joinedCount != null ? item.joinedCount : 0}} / {{item.aCount != null ? item.aCount : '-'}} 人</text>
             </view>
-            <view class="card-meta">{{item.aIsPublic == 1 ? '公开' : '私有'}}</view>
           </view>
           <view class="my-activity-card default-card" wx:if="{{myActivities.length === 0}}" bindtap="toCreateActivity">
-            <view class="card-top">
+            <view class="card-header">
               <text class="card-role">创建</text>
             </view>
             <view class="card-title">暂无活动</view>
-            <view class="card-meta">点击创建</view>
+            <view class="card-cta">点击创建</view>
           </view>
         </view>
       </scroll-view>
@@ -37,26 +34,94 @@
 
   <view class="public-activity-section">
     <view class="section-title section-title-public">公开活动</view>
-    <view class="activity-list" wx:if="{{activities.length > 0}}">
-      <view class="activity-card" wx:for="{{activities}}" wx:key="aId">
+    <view class="search-filter-wrap">
+      <van-search
+        value="{{searchKeyword}}"
+        placeholder="搜索活动名称"
+        bind:change="onSearchChange"
+        custom-class="pub-search"
+      />
+      <view class="filter-toggle" bindtap="toggleFilter">
+        <text class="filter-toggle-text">筛选</text>
+        <text class="filter-toggle-icon">{{filterExpanded ? '▲' : '▼'}}</text>
+      </view>
+      <view class="filter-tags" wx:if="{{filterExpanded}}">
+        <view class="filter-row">
+          <text class="filter-label">等级</text>
+          <view class="filter-options">
+            <text
+              wx:for="{{levelOptions}}"
+              wx:key="*this"
+              class="filter-tag {{filterLevel === item ? 'active' : ''}}"
+              data-type="level"
+              data-value="{{item}}"
+              bindtap="onFilterTap"
+            >{{item}}</text>
+          </view>
+        </view>
+        <view class="filter-row">
+          <text class="filter-label">场地</text>
+          <view class="filter-options">
+            <text
+              wx:for="{{venueOptions}}"
+              wx:key="*this"
+              class="filter-tag {{filterVenue === item ? 'active' : ''}}"
+              data-type="venue"
+              data-value="{{item}}"
+              bindtap="onFilterTap"
+            >{{item}}</text>
+          </view>
+        </view>
+        <view class="filter-row">
+          <text class="filter-label">时段</text>
+          <view class="filter-options">
+            <text
+              wx:for="{{timeSlotOptions}}"
+              wx:key="*this"
+              class="filter-tag {{filterTimeSlot === item ? 'active' : ''}}"
+              data-type="timeSlot"
+              data-value="{{item}}"
+              bindtap="onFilterTap"
+            >{{item}}</text>
+          </view>
+        </view>
+        <view class="filter-row" wx:if="{{dateOptions.length > 0}}">
+          <text class="filter-label">日期</text>
+          <view class="filter-options">
+            <text
+              wx:for="{{dateOptions}}"
+              wx:key="*this"
+              class="filter-tag {{filterDate === item ? 'active' : ''}}"
+              data-type="date"
+              data-value="{{item}}"
+              bindtap="onFilterTap"
+            >{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="activity-list" wx:if="{{filteredActivities.length > 0}}">
+      <view class="activity-card" wx:for="{{filteredActivities}}" wx:key="aId">
         <view class="activity-info">
           <view class="activity-name">{{item.aName}}</view>
           <view class="activity-meta">
-            <text class="activity-date">日期：{{item.aDateShow || item.aEndDateShow}}</text>
+            <text wx:if="{{item.aVenue}}" class="activity-venue">场地：{{item.aVenue}}</text>
             <text class="activity-type">{{item.aIsPublic == 1 ? '公开' : '私有'}}</text>
           </view>
-          <view class="activity-detail" wx:if="{{item.aVenue || item.aLevel || item.aTimeSlot || item.aCount}}">
-            <text wx:if="{{item.aVenue}}" class="activity-detail-item">场地：{{item.aVenue}}</text>
+          <view class="activity-count" wx:if="{{item.aCount != null || item.joinedCount != null}}">
+            <text class="activity-count-text">{{item.joinedCount != null ? item.joinedCount : 0}} / {{item.aCount != null ? item.aCount : '-'}} 人</text>
+          </view>
+          <view class="activity-detail" wx:if="{{item.aDateShow || item.aEndDateShow || item.aLevel || item.aTimeSlot}}">
+            <text wx:if="{{item.aDateShow || item.aEndDateShow}}" class="activity-detail-item">日期：{{item.aDateShow || item.aEndDateShow}}</text>
             <text wx:if="{{item.aLevel}}" class="activity-detail-item">等级：{{item.aLevel}}</text>
             <text wx:if="{{item.aTimeSlot}}" class="activity-detail-item">时段：{{item.aTimeSlot}}</text>
-            <text wx:if="{{item.aCount}}" class="activity-detail-item">人数：{{item.aCount}}人</text>
           </view>
           <view class="activity-desc" wx:if="{{item.aDesc}}">{{item.aDesc}}</view>
         </view>
         <van-button size="small" type="primary" plain bindtap="joinActivity" data-aid="{{item.aId}}">加入</van-button>
       </view>
     </view>
-    <van-empty wx:else description="暂无公开活动" />
+    <van-empty wx:else description="{{activities.length > 0 ? '没有场次' : '暂无公开活动'}}" />
   </view>
 </view>
 

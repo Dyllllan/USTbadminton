@@ -3,6 +3,8 @@
     "nav": "/pages/page_common/navigator/navigator",
     "top": "/pages/page_common/top_container/top_container",
     "van-button": "@vant/weapp/button/index",
-    "van-empty": "@vant/weapp/empty/index"
+    "van-empty": "@vant/weapp/empty/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-tag": "@vant/weapp/tag/index"
   }
 }

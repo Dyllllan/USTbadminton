@@ -2,13 +2,28 @@ const app = getApp()
 const baseUrl = app.globalData.baseUrl
 import * as util from "../../utils/util"
 
+const LEVEL_OPTIONS = ["初级", "中级", "高级", "不限"]
+const VENUE_OPTIONS = ["LG1-court 1", "LG1-court 2", "LG1-court 3", "LG1-court 4", "LG1-court 5", "LG1-court 6", "Seafront-Court 1", "Seafront-Court 2"]
+const TIME_SLOT_OPTIONS = ["09:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00", "21:00-22:00"]
+
 Page({
   data: {
     activities: [],
+    filteredActivities: [],
+    dateOptions: [],
+    searchKeyword: "",
+    filterExpanded: false,
+    filterLevel: "",
+    filterVenue: "",
+    filterTimeSlot: "",
+    filterDate: "",
+    levelOptions: LEVEL_OPTIONS,
+    venueOptions: VENUE_OPTIONS,
+    timeSlotOptions: TIME_SLOT_OPTIONS,
     myCreated: [],
     myParticipated: [],
     myActivities: [],
-    userName: '',
+    userName: "",
     isLogin: false
   },
   onShow() {
@@ -31,10 +46,45 @@ Page({
             }
             return a
           })
-          that.setData({ activities })
+          const dateOptions = [...new Set(activities.map(a => a.aDateShow || a.aEndDateShow).filter(Boolean))].sort()
+          that.setData({ activities, dateOptions }, () => that.applyFilters())
         }
       }
     })
+  },
+  onSearchChange(e) {
+    this.setData({ searchKeyword: e.detail || "" }, () => this.applyFilters())
+  },
+  toggleFilter() {
+    this.setData({ filterExpanded: !this.data.filterExpanded })
+  },
+  onFilterTap(e) {
+    const { type, value } = e.currentTarget.dataset
+    const key = `filter${type.charAt(0).toUpperCase() + type.slice(1)}`
+    const current = this.data[key]
+    const next = current === value ? "" : value
+    this.setData({ [key]: next }, () => this.applyFilters())
+  },
+  applyFilters() {
+    const { activities, searchKeyword, filterLevel, filterVenue, filterTimeSlot, filterDate } = this.data
+    let list = activities.filter(a => {
+      if (searchKeyword && !(a.aName || "").toLowerCase().includes((searchKeyword || "").toLowerCase())) return false
+      if (filterLevel && a.aLevel !== filterLevel) return false
+      if (filterVenue && a.aVenue !== filterVenue) return false
+      if (filterTimeSlot && a.aTimeSlot !== filterTimeSlot) return false
+      const dateShow = a.aDateShow || a.aEndDateShow
+      if (filterDate && dateShow !== filterDate) return false
+      return true
+    })
+    list = list.sort((a, b) => {
+      const da = a.aDate || a.aEndDate || "0"
+      const db = b.aDate || b.aEndDate || "0"
+      if (da !== db) return parseInt(da) - parseInt(db)
+      const ta = (a.aTimeSlot || "").localeCompare(b.aTimeSlot || "")
+      if (ta !== 0) return ta
+      return (a.aVenue || "").localeCompare(b.aVenue || "")
+    })
+    this.setData({ filteredActivities: list })
   },
   loadMyActivities() {
     if (util.getToken() === '') {
